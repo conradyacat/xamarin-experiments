@@ -11,8 +11,6 @@ namespace EmployeeDirectory.Android
     [Activity(Label = "Employee Directory", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : ListActivity
     {
-        private string[] _employees = { "Christophe Coenraets", "John Smith" };
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -21,6 +19,9 @@ namespace EmployeeDirectory.Android
             SetContentView(Resource.Layout.Main);
 
             DatabaseHelper.SeedData();
+
+			Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.topToolbar);
+			SetActionBar(toolbar);
 
             Button searchButton = FindViewById<Button>(Resource.Id.searchButton);
             EditText searchKeyword = FindViewById<EditText>(Resource.Id.searchKeyword);
