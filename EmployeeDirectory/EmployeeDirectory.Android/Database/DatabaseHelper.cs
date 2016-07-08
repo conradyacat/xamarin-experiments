@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using SQLite;
@@ -45,6 +46,20 @@ namespace EmployeeDirectory.Android.Database
                     Email = "mpotter@email.com"
                 };
                 db.Insert(employee);
+            }
+        }
+
+        public static Employee GetEmployeeByPosition(int position)
+        {
+            var employees = GetEmployees("");
+            return employees[position];
+        }
+
+        public static Employee GetEmployee(int id)
+        {
+            using (var db = new SQLiteConnection(GetDbPath()))
+            {
+                return db.Get<Employee>(id);
             }
         }
 

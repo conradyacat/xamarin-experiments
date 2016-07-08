@@ -43,7 +43,7 @@ namespace EmployeeDirectory.Android
             var e = _employees[position];
             View view = convertView;
             if (view == null)
-                view = _context.LayoutInflater.Inflate(Resource.Layout.employee_list_item, null);
+                view = _context.LayoutInflater.Inflate(Resource.Layout.EmployeeListItem, null);
 
             view.FindViewById<TextView>(Resource.Id.firstName).Text = e.FirstName;
             view.FindViewById<TextView>(Resource.Id.lastName).Text = e.LastName;
