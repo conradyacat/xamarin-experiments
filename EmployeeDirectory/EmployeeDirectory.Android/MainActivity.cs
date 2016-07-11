@@ -42,6 +42,18 @@ namespace EmployeeDirectory.Android
             detailsIntent.PutExtra("EMPLOYEE_ID", e.Id);
             StartActivity(detailsIntent);
         }
+
+		public override bool OnCreateOptionsMenu(IMenu menu)
+		{
+			MenuInflater.Inflate(Resource.Menu.home, menu);
+			return base.OnCreateOptionsMenu(menu);
+		}
+
+		public override bool OnOptionsItemSelected(IMenuItem item)
+		{
+			Toast.MakeText(this, "Top ActionBar pressed " + item.TitleFormatted, ToastLength.Short).Show();
+			return base.OnOptionsItemSelected(item);
+		}
     }
 }
 
