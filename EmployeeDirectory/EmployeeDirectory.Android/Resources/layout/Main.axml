@@ -20,7 +20,8 @@
             android:id="@+id/searchKeyword"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:hint="Keyword" />
         <Button
             android:id="@+id/searchButton"
             android:text="Search"
@@ -29,6 +30,6 @@
     </LinearLayout>
     <ListView
         android:id="@android:id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

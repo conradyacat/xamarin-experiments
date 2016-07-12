@@ -20,8 +20,8 @@ namespace EmployeeDirectory.Android
 
             DatabaseHelper.SeedData();
 
-			Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.topToolbar);
-			SetActionBar(toolbar);
+			Toolbar topToolbar = FindViewById<Toolbar>(Resource.Id.topToolbar);
+			SetActionBar(topToolbar);
 
             Button searchButton = FindViewById<Button>(Resource.Id.searchButton);
             EditText searchKeyword = FindViewById<EditText>(Resource.Id.searchKeyword);
@@ -51,8 +51,31 @@ namespace EmployeeDirectory.Android
 
 		public override bool OnOptionsItemSelected(IMenuItem item)
 		{
-			Toast.MakeText(this, "Top ActionBar pressed " + item.TitleFormatted, ToastLength.Short).Show();
-			return base.OnOptionsItemSelected(item);
+			switch (item.ItemId)
+			{
+				case Resource.Id.menu_add_emp:
+					var addIntent = new Intent(this, typeof(EmployeeAddActivity));
+					StartActivityForResult(addIntent, RequestCode.ADD_EMPLOYEE);
+					return true;
+				default:
+					return base.OnOptionsItemSelected(item);
+			}
+		}
+
+		protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+		{
+			base.OnActivityResult(requestCode, resultCode, data);
+
+			if (resultCode == Result.Ok)
+			{
+				switch (requestCode)
+				{
+					case RequestCode.ADD_EMPLOYEE:
+						ListView searchResult = FindViewById<ListView>(R.Id.List);
+						searchResult.Adapter = new EmployeeListAdapter(this, DatabaseHelper.GetEmployees(""));
+						break;
+				}
+			}
 		}
     }
 }
