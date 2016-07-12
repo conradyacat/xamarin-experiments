@@ -1,15 +1,17 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 using EmployeeDirectory.Android.Database;
+using CompatToolbar = Android.Support.V7.Widget.Toolbar;
 using R = Android.Resource;
 
 namespace EmployeeDirectory.Android
 {
     [Activity(Label = "Employee Directory", MainLauncher = true, Icon = "@drawable/icon")]
-    public class MainActivity : ListActivity
+	public class MainActivity : AppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)
         {
@@ -20,27 +22,30 @@ namespace EmployeeDirectory.Android
 
             DatabaseHelper.SeedData();
 
-			Toolbar topToolbar = FindViewById<Toolbar>(Resource.Id.topToolbar);
-			SetActionBar(topToolbar);
+			CompatToolbar topToolbar = FindViewById<CompatToolbar>(Resource.Id.topToolbar);
+			SetSupportActionBar(topToolbar);
 
             Button searchButton = FindViewById<Button>(Resource.Id.searchButton);
             EditText searchKeyword = FindViewById<EditText>(Resource.Id.searchKeyword);
             ListView searchResult = FindViewById<ListView>(R.Id.List);
 
             searchResult.Adapter = new EmployeeListAdapter(this, DatabaseHelper.GetEmployees(searchKeyword.Text));
+			searchResult.ItemClick += (sender, e) =>
+			{
+				var detailsIntent = new Intent(this, typeof(EmployeeDetailsActivity));
+				var employee = DatabaseHelper.GetEmployeeByPosition(e.Position);
+				detailsIntent.PutExtra("EMPLOYEE_ID", employee.Id);
+				StartActivity(detailsIntent);
+			};
+			searchResult.ItemLongClick += (sender, e) =>
+			{
+				
+			};
 
             searchButton.Click += (sender, e) =>
             {
                 searchResult.Adapter = new EmployeeListAdapter(this, DatabaseHelper.GetEmployees(searchKeyword.Text));
             };
-        }
-
-        protected override void OnListItemClick(ListView l, View v, int position, long id)
-        {
-            var detailsIntent = new Intent(this, typeof(EmployeeDetailsActivity));
-            var e = DatabaseHelper.GetEmployeeByPosition(position);
-            detailsIntent.PutExtra("EMPLOYEE_ID", e.Id);
-            StartActivity(detailsIntent);
         }
 
 		public override bool OnCreateOptionsMenu(IMenu menu)

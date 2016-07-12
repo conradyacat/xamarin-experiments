@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:local="http://schemas.android.com/apk/res-auto">
 	<item android:id="@+id/menu_add_emp"
 			android:icon="@drawable/ic_action_content_create"
-			android:showAsAction="ifRoom"
+			local:showAsAction="ifRoom"
 			android:title="Add Employee"/>
 </menu>
