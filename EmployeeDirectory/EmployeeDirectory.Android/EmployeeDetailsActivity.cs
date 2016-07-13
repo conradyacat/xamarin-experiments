@@ -1,19 +1,28 @@
-
 using Android.App;
 using Android.OS;
+using Android.Support.V4.App;
+using Android.Support.V7.App;
+using Android.Views;
 using Android.Widget;
 using EmployeeDirectory.Android.Database;
+using CompatV7 = Android.Support.V7;
 
 namespace EmployeeDirectory.Android
 {
-    [Activity(Label = "Employee Details")]
-    public class EmployeeDetailsActivity : Activity
+	[Activity(Label = "Employee Details", ParentActivity = typeof(MainActivity))]
+	[MetaData("android.support.PARENT_ACTIVITY", Value = "EmployeeDirectory.Android.MainActivity")]
+    public class EmployeeDetailsActivity : AppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.EmployeeDetails);
+
+			var topToolbar = FindViewById<CompatV7.Widget.Toolbar>(Resource.Id.topToolbar);
+			SetSupportActionBar(topToolbar);
+			SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
             int employeeId = Intent.Extras.GetInt("EMPLOYEE_ID");
 
             Employee e = DatabaseHelper.GetEmployee(employeeId);
@@ -32,5 +41,17 @@ namespace EmployeeDirectory.Android
             var email = FindViewById<TextView>(Resource.Id.email);
             email.Text = e.Email;
         }
+
+		public override bool OnOptionsItemSelected(IMenuItem item)
+		{
+			switch (item.ItemId)
+			{
+				case Resource.Id.home:
+					NavUtils.NavigateUpFromSameTask(this);
+					return true;
+				default:
+					return base.OnOptionsItemSelected(item);
+			}
+		}
     }
 }

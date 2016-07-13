@@ -1,19 +1,27 @@
-﻿
-using Android.App;
+﻿using Android.App;
 using Android.OS;
+using Android.Support.V4.App;
+using Android.Support.V7.App;
+using Android.Views;
 using Android.Widget;
 using EmployeeDirectory.Android.Database;
+using CompatV7 = Android.Support.V7;
 
 namespace EmployeeDirectory.Android
 {
-	[Activity(Label = "Add Employee")]
-	public class EmployeeAddActivity : Activity
+	[Activity(Label = "Add Employee", ParentActivity = typeof(MainActivity))]
+	[MetaData("android.support.PARENT_ACTIVITY", Value = "EmployeeDirectory.Android.MainActivity")]
+	public class EmployeeAddActivity : AppCompatActivity
 	{
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
 
 			SetContentView(Resource.Layout.EmployeeAdd);
+
+			var topToolbar = FindViewById<CompatV7.Widget.Toolbar>(Resource.Id.topToolbar);
+			SetSupportActionBar(topToolbar);
+			SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
 			var saveButton = FindViewById<Button>(Resource.Id.saveButton);
 			saveButton.Click += (sender, e) =>
@@ -79,6 +87,18 @@ namespace EmployeeDirectory.Android
 				SetResult(Result.Ok, null);
 				Finish();
 			};
+		}
+
+		public override bool OnOptionsItemSelected(IMenuItem item)
+		{
+			switch (item.ItemId)
+			{
+				case Resource.Id.home:
+					NavUtils.NavigateUpFromSameTask(this);
+					return true;
+				default:
+					return base.OnOptionsItemSelected(item);
+			}
 		}
 	}
 }

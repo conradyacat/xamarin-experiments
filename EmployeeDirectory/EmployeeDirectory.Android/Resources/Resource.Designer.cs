@@ -1552,8 +1552,8 @@ namespace EmployeeDirectory.Android
 			// aapt resource value: 0x7f0b0043
 			public const int edit_query = 2131427395;
 			
-			// aapt resource value: 0x7f0b0054
-			public const int email = 2131427412;
+			// aapt resource value: 0x7f0b0055
+			public const int email = 2131427413;
 			
 			// aapt resource value: 0x7f0b001a
 			public const int end = 2131427354;
@@ -1567,8 +1567,8 @@ namespace EmployeeDirectory.Android
 			// aapt resource value: 0x7f0b0038
 			public const int expanded_menu = 2131427384;
 			
-			// aapt resource value: 0x7f0b0050
-			public const int firstName = 2131427408;
+			// aapt resource value: 0x7f0b0051
+			public const int firstName = 2131427409;
 			
 			// aapt resource value: 0x7f0b0004
 			public const int home = 2131427332;
@@ -1588,8 +1588,8 @@ namespace EmployeeDirectory.Android
 			// aapt resource value: 0x7f0b0067
 			public const int info = 2131427431;
 			
-			// aapt resource value: 0x7f0b0051
-			public const int lastName = 2131427409;
+			// aapt resource value: 0x7f0b0052
+			public const int lastName = 2131427410;
 			
 			// aapt resource value: 0x7f0b0061
 			public const int line1 = 2131427425;
@@ -1612,17 +1612,17 @@ namespace EmployeeDirectory.Android
 			// aapt resource value: 0x7f0b001b
 			public const int middle = 2131427355;
 			
-			// aapt resource value: 0x7f0b0053
-			public const int mobilePhone = 2131427411;
+			// aapt resource value: 0x7f0b0054
+			public const int mobilePhone = 2131427412;
 			
-			// aapt resource value: 0x7f0b0058
-			public const int mobilePhoneNumber = 2131427416;
+			// aapt resource value: 0x7f0b0059
+			public const int mobilePhoneNumber = 2131427417;
 			
 			// aapt resource value: 0x7f0b0014
 			public const int multiply = 2131427348;
 			
-			// aapt resource value: 0x7f0b0056
-			public const int name = 2131427414;
+			// aapt resource value: 0x7f0b0057
+			public const int name = 2131427415;
 			
 			// aapt resource value: 0x7f0b001f
 			public const int never = 2131427359;
@@ -1633,11 +1633,11 @@ namespace EmployeeDirectory.Android
 			// aapt resource value: 0x7f0b000a
 			public const int normal = 2131427338;
 			
-			// aapt resource value: 0x7f0b0052
-			public const int officePhone = 2131427410;
+			// aapt resource value: 0x7f0b0053
+			public const int officePhone = 2131427411;
 			
-			// aapt resource value: 0x7f0b0057
-			public const int officePhoneNumber = 2131427415;
+			// aapt resource value: 0x7f0b0058
+			public const int officePhoneNumber = 2131427416;
 			
 			// aapt resource value: 0x7f0b002d
 			public const int parentPanel = 2131427373;
@@ -1651,8 +1651,8 @@ namespace EmployeeDirectory.Android
 			// aapt resource value: 0x7f0b003b
 			public const int radio = 2131427387;
 			
-			// aapt resource value: 0x7f0b0055
-			public const int saveButton = 2131427413;
+			// aapt resource value: 0x7f0b0056
+			public const int saveButton = 2131427414;
 			
 			// aapt resource value: 0x7f0b0015
 			public const int screen = 2131427349;
@@ -1762,8 +1762,8 @@ namespace EmployeeDirectory.Android
 			// aapt resource value: 0x7f0b002e
 			public const int topPanel = 2131427374;
 			
-			// aapt resource value: 0x7f0b0059
-			public const int topToolbar = 2131427417;
+			// aapt resource value: 0x7f0b0050
+			public const int topToolbar = 2131427408;
 			
 			// aapt resource value: 0x7f0b0008
 			public const int up = 2131427336;
