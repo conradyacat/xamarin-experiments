@@ -1,10 +1,11 @@
-﻿using System;
+﻿using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Support.V4.View;
+using Android.Support.V4.Widget;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
@@ -28,10 +29,22 @@ namespace EmployeeDirectory.Android
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
-            DatabaseHelper.SeedData();
-
 			var topToolbar = FindViewById<CompatV7.Widget.Toolbar>(Resource.Id.topToolbar);
 			SetSupportActionBar(topToolbar);
+
+			DatabaseHelper.Initialize();
+
+			var refresher = FindViewById<SwipeRefreshLayout>(Resource.Id.refresher);
+			refresher.Refresh += async (sender, e) =>
+			{
+				var employees = await Task.Run(() =>
+				{
+					refresher.Refreshing = true;
+					return DatabaseHelper.GetEmployees("");
+				});
+				_searchResult.Adapter = new EmployeeListAdapter(this, employees);
+				refresher.Refreshing = false;
+			};
 
             _searchResult = FindViewById<ListView>(R.Id.List);
             _searchResult.Adapter = new EmployeeListAdapter(this, DatabaseHelper.GetEmployees(""));

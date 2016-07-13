@@ -9,45 +9,11 @@ namespace EmployeeDirectory.Android.Database
     {
 		private static string DbPath;
 		
-        public static void SeedData()
+        public static void Initialize()
         {
             using (var db = new SQLiteConnection(GetDbPath()))
             {
                 db.CreateTable<Employee>();
-                //db.DeleteAll<Employee>();
-
-                //var employee = new Employee
-                //{
-                //    FirstName = "John",
-                //    LastName = "Smith",
-                //    Title = "CEO",
-                //    OfficePhone = "617-219-2001",
-                //    MobilePhone = "617-456-7890",
-                //    Email = "jsmith@email.com"
-                //};
-                //db.Insert(employee);
-
-                //employee = new Employee
-                //{
-                //    FirstName = "Robert",
-                //    LastName = "Jackson",
-                //    Title = "VP Engineering",
-                //    OfficePhone = "617-219-3333",
-                //    MobilePhone = "781-444-2222",
-                //    Email = "rjackson@email.com"
-                //};
-                //db.Insert(employee);
-
-                //employee = new Employee
-                //{
-                //    FirstName = "Marie",
-                //    LastName = "Potter",
-                //    Title = "VP Sales",
-                //    OfficePhone = "617-219-2002",
-                //    MobilePhone = "987-654-3210",
-                //    Email = "mpotter@email.com"
-                //};
-                //db.Insert(employee);
             }
         }
 
