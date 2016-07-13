@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
@@ -49,7 +50,7 @@ namespace EmployeeDirectory.Android
 										.SetPositiveButton("Delete", (senderAlert, eAlert) =>
 											{
 												DatabaseHelper.DeleteEmployee(employee);
-												Toast.MakeText(this, "\"" + name + "\" deleted", ToastLength.Short).Show();
+												Snackbar.Make(FindViewById<View>(Resource.Id.mainLayout), "\"" + name + "\" deleted", Snackbar.LengthShort).Show();
 												searchResult.Adapter = new EmployeeListAdapter(this, DatabaseHelper.GetEmployees(searchKeyword.Text));
 											})
 	                                   .SetNegativeButton("Cancel", (senderAlert, eAlert) => { })

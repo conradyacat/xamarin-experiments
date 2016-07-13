@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.OS;
+using Android.Support.Design.Widget;
 using Android.Support.V4.App;
 using Android.Support.V7.App;
 using Android.Views;
@@ -83,7 +84,7 @@ namespace EmployeeDirectory.Android
 				};
 
 				DatabaseHelper.AddEmployee(employee);
-				Toast.MakeText(this, "New Employee Saved", ToastLength.Short).Show();
+				Snackbar.Make(FindViewById<View>(Resource.Id.empAddLayout), "New Employee Saved", Snackbar.LengthShort).Show();
 				SetResult(Result.Ok, null);
 				Finish();
 			};
