@@ -81,6 +81,14 @@ namespace EmployeeDirectory.Android.Database
 			}
 		}
 
+		public static void DeleteEmployee(Employee employee)
+		{
+			using (var db = new SQLiteConnection(GetDbPath()))
+			{
+				db.Delete(employee);
+			}
+		}
+
         private static string GetDbPath()
         {
 			return DbPath ?? (DbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "employeedir.db3"));

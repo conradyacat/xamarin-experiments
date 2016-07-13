@@ -1,31 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:rowCount="5"
+    android:columnCount="2">
     <TextView
-        android:text="Text"
+        android:text="Full Name: "
+        android:layout_row="0"
+        android:layout_column="0" />
+    <TextView
+        android:text=""
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/name" />
+        android:id="@+id/name"
+        android:layout_row="0"
+        android:layout_column="1" />
     <TextView
-        android:text="Text"
+        android:text="Title: "
+        android:layout_row="1"
+        android:layout_column="0" />
+    <TextView
+        android:text=""
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/title" />
+        android:id="@+id/title"
+        android:layout_row="1"
+        android:layout_column="1" />
     <TextView
-        android:text="Text"
+        android:text="Office Phone: "
+        android:layout_row="2"
+        android:layout_column="0" />
+    <TextView
+        android:text=""
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/officePhoneNumber" />
+        android:id="@+id/officePhoneNumber"
+        android:layout_row="2"
+        android:layout_column="1" />
     <TextView
-        android:text="Text"
+        android:text="Mobile Phone: "
+        android:layout_row="3"
+        android:layout_column="0" />
+    <TextView
+        android:text=""
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/mobilePhoneNumber" />
+        android:id="@+id/mobilePhoneNumber"
+        android:layout_row="3"
+        android:layout_column="1" />
     <TextView
-        android:text="Text"
+        android:text="Email: "
+        android:layout_row="4"
+        android:layout_column="0" />
+    <TextView
+        android:text=""
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/email" />
-</LinearLayout>
+        android:id="@+id/email"
+        android:layout_row="4"
+        android:layout_column="1" />
+</GridLayout>

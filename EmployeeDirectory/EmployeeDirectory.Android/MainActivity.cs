@@ -5,7 +5,8 @@ using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 using EmployeeDirectory.Android.Database;
-using CompatToolbar = Android.Support.V7.Widget.Toolbar;
+using EmployeeDirectory.Android.Util;
+using CompatV7 = Android.Support.V7;
 using R = Android.Resource;
 
 namespace EmployeeDirectory.Android
@@ -22,7 +23,7 @@ namespace EmployeeDirectory.Android
 
             DatabaseHelper.SeedData();
 
-			CompatToolbar topToolbar = FindViewById<CompatToolbar>(Resource.Id.topToolbar);
+			var topToolbar = FindViewById<CompatV7.Widget.Toolbar>(Resource.Id.topToolbar);
 			SetSupportActionBar(topToolbar);
 
             Button searchButton = FindViewById<Button>(Resource.Id.searchButton);
@@ -33,13 +34,27 @@ namespace EmployeeDirectory.Android
 			searchResult.ItemClick += (sender, e) =>
 			{
 				var detailsIntent = new Intent(this, typeof(EmployeeDetailsActivity));
-				var employee = DatabaseHelper.GetEmployeeByPosition(e.Position);
+				var employee = e.Parent.GetItemAtPosition(e.Position).Cast<Employee>();
 				detailsIntent.PutExtra("EMPLOYEE_ID", employee.Id);
 				StartActivity(detailsIntent);
 			};
+
 			searchResult.ItemLongClick += (sender, e) =>
 			{
-				
+				var employee = e.Parent.GetItemAtPosition(e.Position).Cast<Employee>();
+				string name = employee.FirstName + " " + employee.LastName;
+				Dialog confirmDialog = new CompatV7.App.AlertDialog.Builder(this)
+										.SetTitle("Confirm Delete")
+										.SetMessage("Do you want to delete \"" + name + "\"?")
+										.SetPositiveButton("Delete", (senderAlert, eAlert) =>
+											{
+												DatabaseHelper.DeleteEmployee(employee);
+												Toast.MakeText(this, "\"" + name + "\" deleted", ToastLength.Short).Show();
+												searchResult.Adapter = new EmployeeListAdapter(this, DatabaseHelper.GetEmployees(searchKeyword.Text));
+											})
+	                                   .SetNegativeButton("Cancel", (senderAlert, eAlert) => { })
+	                                   .Create();
+				confirmDialog.Show();
 			};
 
             searchButton.Click += (sender, e) =>
