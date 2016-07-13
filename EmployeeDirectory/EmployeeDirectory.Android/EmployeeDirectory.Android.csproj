@@ -93,6 +93,7 @@
     <Compile Include="EmployeeAddActivity.cs" />
     <Compile Include="RequestCode.cs" />
     <Compile Include="Util\ObjectConverter.cs" />
+    <Compile Include="Util\BitmapHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
