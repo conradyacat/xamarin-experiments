@@ -1,7 +1,10 @@
-﻿using Android.App;
+﻿using System;
+using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Runtime;
 using Android.Support.Design.Widget;
+using Android.Support.V4.View;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
@@ -12,10 +15,13 @@ using R = Android.Resource;
 
 namespace EmployeeDirectory.Android
 {
-    [Activity(Label = "Employee Directory", MainLauncher = true, Icon = "@drawable/icon")]
-	public class MainActivity : AppCompatActivity
+	[Activity(Label = "Employee Directory", MainLauncher = true, Icon = "@drawable/icon")]
+	public class MainActivity : AppCompatActivity, CompatV7.Widget.SearchView.IOnQueryTextListener
     {
-        protected override void OnCreate(Bundle bundle)
+		private ListView _searchResult;
+		private CompatV7.Widget.SearchView _searchView;
+
+		protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
@@ -27,12 +33,9 @@ namespace EmployeeDirectory.Android
 			var topToolbar = FindViewById<CompatV7.Widget.Toolbar>(Resource.Id.topToolbar);
 			SetSupportActionBar(topToolbar);
 
-            Button searchButton = FindViewById<Button>(Resource.Id.searchButton);
-            EditText searchKeyword = FindViewById<EditText>(Resource.Id.searchKeyword);
-            ListView searchResult = FindViewById<ListView>(R.Id.List);
-
-            searchResult.Adapter = new EmployeeListAdapter(this, DatabaseHelper.GetEmployees(searchKeyword.Text));
-			searchResult.ItemClick += (sender, e) =>
+            _searchResult = FindViewById<ListView>(R.Id.List);
+            _searchResult.Adapter = new EmployeeListAdapter(this, DatabaseHelper.GetEmployees(""));
+			_searchResult.ItemClick += (sender, e) =>
 			{
 				var detailsIntent = new Intent(this, typeof(EmployeeDetailsActivity));
 				var employee = e.Parent.GetItemAtPosition(e.Position).Cast<Employee>();
@@ -40,7 +43,7 @@ namespace EmployeeDirectory.Android
 				StartActivity(detailsIntent);
 			};
 
-			searchResult.ItemLongClick += (sender, e) =>
+			_searchResult.ItemLongClick += (sender, e) =>
 			{
 				var employee = e.Parent.GetItemAtPosition(e.Position).Cast<Employee>();
 				string name = employee.FirstName + " " + employee.LastName;
@@ -51,22 +54,21 @@ namespace EmployeeDirectory.Android
 											{
 												DatabaseHelper.DeleteEmployee(employee);
 												Snackbar.Make(FindViewById<View>(Resource.Id.mainLayout), "\"" + name + "\" deleted", Snackbar.LengthShort).Show();
-												searchResult.Adapter = new EmployeeListAdapter(this, DatabaseHelper.GetEmployees(searchKeyword.Text));
+												_searchResult.Adapter = new EmployeeListAdapter(this, DatabaseHelper.GetEmployees(""));
 											})
 	                                   .SetNegativeButton("Cancel", (senderAlert, eAlert) => { })
 	                                   .Create();
 				confirmDialog.Show();
 			};
-
-            searchButton.Click += (sender, e) =>
-            {
-                searchResult.Adapter = new EmployeeListAdapter(this, DatabaseHelper.GetEmployees(searchKeyword.Text));
-            };
         }
 
 		public override bool OnCreateOptionsMenu(IMenu menu)
 		{
 			MenuInflater.Inflate(Resource.Menu.home, menu);
+			IMenuItem searchItem = menu.FindItem(Resource.Id.menu_search);
+			View view = MenuItemCompat.GetActionView(searchItem);
+			_searchView = view.JavaCast<CompatV7.Widget.SearchView>();
+			_searchView.SetOnQueryTextListener(this);
 			return base.OnCreateOptionsMenu(menu);
 		}
 
@@ -98,6 +100,23 @@ namespace EmployeeDirectory.Android
 				}
 			}
 		}
-    }
+
+		public bool OnQueryTextChange(string newText)
+		{
+			if (string.IsNullOrWhiteSpace(newText))
+			{
+				_searchResult.Adapter = new EmployeeListAdapter(this, DatabaseHelper.GetEmployees(newText));
+				return true;
+			}
+
+			return false;
+		}
+
+		public bool OnQueryTextSubmit(string query)
+		{
+			_searchResult.Adapter = new EmployeeListAdapter(this, DatabaseHelper.GetEmployees(query));
+			return true;
+		}
+	}
 }
 
