@@ -13,6 +13,13 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:title="Employee Directory" />
+    <ImageView
+        android:src="@android:drawable/ic_menu_gallery"
+        android:layout_width="200.0dp"
+        android:layout_height="200.0dp"
+        android:layout_gravity="center"
+        android:id="@+id/photo"
+        android:adjustViewBounds="true" />
     <GridLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

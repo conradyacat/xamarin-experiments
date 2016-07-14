@@ -18,9 +18,7 @@ namespace EmployeeDirectory.Android.Util
 
 			if (outHeight > height || outWidth > width)
 			{
-				inSampleSize = outWidth > outHeight
-								   ? outHeight / height
-								   : outWidth / width;
+				inSampleSize = outWidth > outHeight ? outHeight / height : outWidth / width;
 			}
 
 			// Now we will load the image and have BitmapFactory resize it for us.

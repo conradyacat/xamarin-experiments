@@ -1,6 +1,5 @@
 ﻿using Android.App;
 using Android.Content;
-using Android.Graphics;
 using Android.Net;
 using Android.OS;
 using Android.Provider;
@@ -10,14 +9,13 @@ using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 using EmployeeDirectory.Android.Database;
-using EmployeeDirectory.Android.Util;
 using Java.IO;
 using CompatV7 = Android.Support.V7;
 
 namespace EmployeeDirectory.Android
 {
 	[Activity(Label = "Add Employee", ParentActivity = typeof(MainActivity))]
-	[MetaData("android.support.PARENT_ACTIVITY", Value = "EmployeeDirectory.Android.MainActivity")]
+	[MetaData(NavUtils.ParentActivity, Value = "EmployeeDirectory.Android.MainActivity")]
 	public class EmployeeAddActivity : AppCompatActivity
 	{
 		private ImageButton _imageButton;
@@ -33,14 +31,17 @@ namespace EmployeeDirectory.Android
 			SetSupportActionBar(topToolbar);
 			SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
-			_imageButton = FindViewById<ImageButton>(Resource.Id.photo);
-			_imageButton.Click += (sender, e) =>
+			if (AppContext.IsCameraAvailable)
 			{
-				_file = new File(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), System.Guid.NewGuid().ToString());
-				var intent = new Intent(MediaStore.ActionImageCapture);
-				intent.PutExtra(MediaStore.ExtraOutput, Uri.FromFile(_file));
-				StartActivityForResult(intent, 0);
-			};
+				_imageButton = FindViewById<ImageButton>(Resource.Id.photo);
+				_imageButton.Click += (sender, e) =>
+				{
+					_file = new File(AppContext.PhotoDirectory, System.Guid.NewGuid() + ".jpg");
+					var intent = new Intent(MediaStore.ActionImageCapture);
+					intent.PutExtra(MediaStore.ExtraOutput, Uri.FromFile(_file));
+					StartActivityForResult(intent, 0);
+				};
+			}
 
 			var saveButton = FindViewById<Button>(Resource.Id.saveButton);
 			saveButton.Click += (sender, e) =>
@@ -98,7 +99,8 @@ namespace EmployeeDirectory.Android
 					Title = title.Text,
 					OfficePhone = officePhone.Text,
 					MobilePhone = mobilePhone.Text,
-					Email = email.Text
+					Email = email.Text,
+					PhotoFileName = (_file != null ? _file.Name : null)
 				};
 
 				DatabaseHelper.AddEmployee(employee);
@@ -124,9 +126,17 @@ namespace EmployeeDirectory.Android
 		{
 			base.OnActivityResult(requestCode, resultCode, data);
 
-			int height = Resources.DisplayMetrics.HeightPixels;
-			int width = _imageButton.Height;
-			Bitmap bitmap = _file.Path.LoadAndResizeBitmap(height, width);
+			if (resultCode == Result.Ok)
+			{
+				// Display in ImageView
+				_imageButton.SetImageURI(Uri.FromFile(_file));
+			}
+		}
+
+		protected override void OnDestroy()
+		{
+			System.GC.Collect();
+			base.OnDestroy();
 		}
 	}
 }

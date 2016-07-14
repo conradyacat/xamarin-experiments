@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Android.Util;
 using SQLite;
 
 namespace EmployeeDirectory.Android.Database
@@ -11,6 +12,8 @@ namespace EmployeeDirectory.Android.Database
 		
         public static void Initialize()
         {
+			Log.Verbose(nameof(DatabaseHelper), "Initializing db");
+			
             using (var db = new SQLiteConnection(GetDbPath()))
             {
                 db.CreateTable<Employee>();
@@ -35,7 +38,7 @@ namespace EmployeeDirectory.Android.Database
         {
             using (var db = new SQLiteConnection(GetDbPath()))
             {
-                return db.Query<Employee>("SELECT id, firstname, lastname, title FROM employee WHERE firstname || '' || lastname LIKE ?", "%" + keyword + "%");
+                return db.Query<Employee>("SELECT id, firstname, lastname, title, photofilename FROM employee WHERE firstname || '' || lastname LIKE ?", "%" + keyword + "%");
             }
         }
 

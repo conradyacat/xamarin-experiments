@@ -18,5 +18,7 @@ namespace EmployeeDirectory.Android
         public string MobilePhone { get; set; }
 
         public string Email { get; set; }
+
+		public string PhotoFileName { get; set; }
     }
 }

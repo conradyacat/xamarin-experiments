@@ -1,8 +1,10 @@
 using System.Collections.Generic;
-
 using Android.App;
+using Android.Net;
 using Android.Views;
 using Android.Widget;
+using Java.IO;
+using Square.Picasso;
 
 namespace EmployeeDirectory.Android
 {
@@ -45,9 +47,17 @@ namespace EmployeeDirectory.Android
             if (view == null)
                 view = _context.LayoutInflater.Inflate(Resource.Layout.EmployeeListItem, null);
 
-            view.FindViewById<TextView>(Resource.Id.firstName).Text = e.FirstName;
-            view.FindViewById<TextView>(Resource.Id.lastName).Text = e.LastName;
+			view.FindViewById<TextView>(Resource.Id.name).Text = e.FirstName + " " + e.LastName;
             view.FindViewById<TextView>(Resource.Id.title).Text = e.Title;
+			if (!string.IsNullOrEmpty(e.PhotoFileName))
+			{
+				Picasso.With(_context)
+					   .Load(Uri.FromFile(new File(AppContext.PhotoDirectory, e.PhotoFileName)))
+					   .Resize(50, 50)
+					   .CenterCrop()
+					   .Tag(_context)
+					   .Into(view.FindViewById<ImageView>(Resource.Id.photo));
+			}
 
             return view;
         }

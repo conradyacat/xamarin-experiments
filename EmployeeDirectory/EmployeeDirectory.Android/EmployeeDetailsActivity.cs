@@ -1,16 +1,18 @@
 using Android.App;
+using Android.Net;
 using Android.OS;
 using Android.Support.V4.App;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 using EmployeeDirectory.Android.Database;
+using Java.IO;
 using CompatV7 = Android.Support.V7;
 
 namespace EmployeeDirectory.Android
 {
 	[Activity(Label = "Employee Details", ParentActivity = typeof(MainActivity))]
-	[MetaData("android.support.PARENT_ACTIVITY", Value = "EmployeeDirectory.Android.MainActivity")]
+	[MetaData(NavUtils.ParentActivity, Value = "EmployeeDirectory.Android.MainActivity")]
     public class EmployeeDetailsActivity : AppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -40,6 +42,9 @@ namespace EmployeeDirectory.Android
 
             var email = FindViewById<TextView>(Resource.Id.email);
             email.Text = e.Email;
+
+			var photo = FindViewById<ImageView>(Resource.Id.photo);
+			photo.SetImageURI(Uri.FromFile(new File(AppContext.PhotoDirectory, e.PhotoFileName)));
         }
 
 		public override bool OnOptionsItemSelected(IMenuItem item)
@@ -52,6 +57,12 @@ namespace EmployeeDirectory.Android
 				default:
 					return base.OnOptionsItemSelected(item);
 			}
+		}
+
+		protected override void OnDestroy()
+		{
+			System.GC.Collect();
+			base.OnDestroy();
 		}
     }
 }

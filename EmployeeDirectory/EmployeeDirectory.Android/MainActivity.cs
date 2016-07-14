@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
@@ -16,7 +17,7 @@ using R = Android.Resource;
 
 namespace EmployeeDirectory.Android
 {
-	[Activity(Label = "Employee Directory", MainLauncher = true, Icon = "@drawable/icon")]
+	[Activity(Label = "Employee Directory", MainLauncher = true, Icon = "@drawable/icon", LaunchMode = LaunchMode.SingleTop)]
 	public class MainActivity : AppCompatActivity, CompatV7.Widget.SearchView.IOnQueryTextListener
     {
 		private ListView _searchResult;
@@ -32,7 +33,7 @@ namespace EmployeeDirectory.Android
 			var topToolbar = FindViewById<CompatV7.Widget.Toolbar>(Resource.Id.topToolbar);
 			SetSupportActionBar(topToolbar);
 
-			DatabaseHelper.Initialize();
+			Bootstrapper.Bootstrap(this);
 
 			var refresher = FindViewById<SwipeRefreshLayout>(Resource.Id.refresher);
 			refresher.Refresh += async (sender, e) =>
@@ -51,6 +52,7 @@ namespace EmployeeDirectory.Android
 			_searchResult.ItemClick += (sender, e) =>
 			{
 				var detailsIntent = new Intent(this, typeof(EmployeeDetailsActivity));
+				detailsIntent.AddFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
 				var employee = e.Parent.GetItemAtPosition(e.Position).Cast<Employee>();
 				detailsIntent.PutExtra("EMPLOYEE_ID", employee.Id);
 				StartActivity(detailsIntent);
@@ -91,6 +93,7 @@ namespace EmployeeDirectory.Android
 			{
 				case Resource.Id.menu_add_emp:
 					var addIntent = new Intent(this, typeof(EmployeeAddActivity));
+					addIntent.AddFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
 					StartActivityForResult(addIntent, RequestCode.ADD_EMPLOYEE);
 					return true;
 				default:
