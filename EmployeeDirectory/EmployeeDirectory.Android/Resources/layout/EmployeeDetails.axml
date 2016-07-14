@@ -10,76 +10,96 @@
         android:id="@+id/topToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        local:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
         android:title="Employee Directory" />
-    <ImageView
-        android:src="@android:drawable/ic_menu_gallery"
-        android:layout_width="200.0dp"
-        android:layout_height="200.0dp"
-        android:layout_gravity="center"
-        android:id="@+id/photo"
-        android:adjustViewBounds="true" />
-    <GridLayout
-        android:orientation="vertical"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:rowCount="5"
-        android:columnCount="2">
-        <TextView
-            android:text="Full Name: "
-            android:layout_row="0"
-            android:layout_column="0" />
-        <TextView
-            android:text=""
+        android:orientation="vertical"
+        android:padding="8dp">
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/name"
-            android:layout_row="0"
-            android:layout_column="1" />
-        <TextView
-            android:text="Title: "
-            android:layout_row="1"
-            android:layout_column="0" />
-        <TextView
-            android:text=""
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/title"
-            android:layout_row="1"
-            android:layout_column="1" />
-        <TextView
-            android:text="Office Phone: "
-            android:layout_row="2"
-            android:layout_column="0" />
-        <TextView
-            android:text=""
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/officePhoneNumber"
-            android:layout_row="2"
-            android:layout_column="1" />
-        <TextView
-            android:text="Mobile Phone: "
-            android:layout_row="3"
-            android:layout_column="0" />
-        <TextView
-            android:text=""
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/mobilePhoneNumber"
-            android:layout_row="3"
-            android:layout_column="1" />
-        <TextView
-            android:text="Email: "
-            android:layout_row="4"
-            android:layout_column="0" />
-        <TextView
-            android:text=""
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/email"
-            android:layout_row="4"
-            android:layout_column="1" />
-    </GridLayout>
+            android:layout_gravity="center_horizontal"
+            local:cardCornerRadius="5dp"
+            local:cardElevation="4dp"
+            android:padding="5dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="8dp">
+                <ImageView
+                    android:src="@android:drawable/ic_menu_gallery"
+                    android:layout_width="200.0dp"
+                    android:layout_height="200.0dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/photo"
+                    android:adjustViewBounds="true" />
+                <GridLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:rowCount="5"
+                    android:columnCount="2">
+                    <TextView
+                        android:text="Full Name: "
+                        android:layout_row="0"
+                        android:layout_column="0" />
+                    <TextView
+                        android:text=""
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/name"
+                        android:layout_row="0"
+                        android:layout_column="1" />
+                    <TextView
+                        android:text="Title: "
+                        android:layout_row="1"
+                        android:layout_column="0" />
+                    <TextView
+                        android:text=""
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/title"
+                        android:layout_row="1"
+                        android:layout_column="1" />
+                    <TextView
+                        android:text="Office Phone: "
+                        android:layout_row="2"
+                        android:layout_column="0" />
+                    <TextView
+                        android:text=""
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/officePhoneNumber"
+                        android:layout_row="2"
+                        android:layout_column="1" />
+                    <TextView
+                        android:text="Mobile Phone: "
+                        android:layout_row="3"
+                        android:layout_column="0" />
+                    <TextView
+                        android:text=""
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/mobilePhoneNumber"
+                        android:layout_row="3"
+                        android:layout_column="1" />
+                    <TextView
+                        android:text="Email: "
+                        android:layout_row="4"
+                        android:layout_column="0" />
+                    <TextView
+                        android:text=""
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/email"
+                        android:layout_row="4"
+                        android:layout_column="1" />
+                </GridLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
 </LinearLayout>

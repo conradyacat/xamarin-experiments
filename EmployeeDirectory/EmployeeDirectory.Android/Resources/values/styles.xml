@@ -3,15 +3,15 @@
 	<style name="AppTheme" parent="Theme.AppCompat.Light" >
 		<!-- Main theme colors -->
     	<!--   your app branding color for the app bar -->
-		<item name="colorPrimary">#2196F3</item>
+		<item name="colorPrimary">#1976D2</item>
 		<!--   darker variant for the status bar and contextual app bars -->
 		<item name="colorPrimaryDark">#1565C0</item>
 		<!--   theme UI controls like checkboxes and text fields -->
 		<item name="colorAccent">#9E9E9E</item>
 		<!-- android:textColorPrimary is the  color of the title text in the Toolbar, in the Theme.AppCompat theme:  -->
-		<item name="android:textColorPrimary">#FFFFFF</item>		
+		<!--<item name="android:textColorPrimary">#FFFFFF</item>		-->
 		<item name="windowNoTitle">true</item>
 		<item name="windowActionBar">false</item>
-		<item name="colorButtonNormal">#2196F3</item>
+		<item name="colorButtonNormal">#1976D2</item>
 	</style>
 </resources>

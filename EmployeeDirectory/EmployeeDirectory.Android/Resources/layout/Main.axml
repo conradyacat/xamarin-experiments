@@ -18,8 +18,8 @@
                 android:id="@+id/topToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-                local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                local:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
                 android:title="Employee Directory" />
             <ListView
                 android:id="@android:id/list"
