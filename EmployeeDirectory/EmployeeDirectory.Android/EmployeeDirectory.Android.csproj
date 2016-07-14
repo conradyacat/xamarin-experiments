@@ -132,6 +132,7 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_content_save.png" />
     <AndroidResource Include="Resources\layout\EmployeeAdd.axml" />
     <AndroidResource Include="Resources\values\styles.xml" />
+    <AndroidResource Include="Resources\menu\addemp.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">

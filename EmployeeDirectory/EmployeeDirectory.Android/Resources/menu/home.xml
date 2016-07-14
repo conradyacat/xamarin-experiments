@@ -7,9 +7,4 @@
 		android:title="Search"
 		local:showAsAction="collapseActionView|ifRoom"
 		local:actionViewClass="android.support.v7.widget.SearchView" />
-	<item 
-		android:id="@+id/menu_add_emp"
-		android:icon="@drawable/ic_action_content_create"
-		android:title="Add Employee"
-		local:showAsAction="never" />
 </menu>

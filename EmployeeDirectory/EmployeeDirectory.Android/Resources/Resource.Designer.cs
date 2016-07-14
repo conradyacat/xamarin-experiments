@@ -1876,6 +1876,9 @@ namespace EmployeeDirectory.Android
 			// aapt resource value: 0x7f06003d
 			public const int activity_chooser_view_content = 2131099709;
 			
+			// aapt resource value: 0x7f06007f
+			public const int addEmpButton = 2131099775;
+			
 			// aapt resource value: 0x7f060049
 			public const int alertTitle = 2131099721;
 			
@@ -2035,17 +2038,17 @@ namespace EmployeeDirectory.Android
 			// aapt resource value: 0x7f060041
 			public const int list_item = 2131099713;
 			
-			// aapt resource value: 0x7f06007f
-			public const int mainLayout = 2131099775;
+			// aapt resource value: 0x7f06007e
+			public const int mainLayout = 2131099774;
 			
 			// aapt resource value: 0x7f060083
 			public const int media_actions = 2131099779;
 			
-			// aapt resource value: 0x7f06008e
-			public const int menu_add_emp = 2131099790;
-			
 			// aapt resource value: 0x7f06008d
-			public const int menu_search = 2131099789;
+			public const int menu_save = 2131099789;
+			
+			// aapt resource value: 0x7f06008e
+			public const int menu_search = 2131099790;
 			
 			// aapt resource value: 0x7f06001d
 			public const int middle = 2131099677;
@@ -2056,14 +2059,14 @@ namespace EmployeeDirectory.Android
 			// aapt resource value: 0x7f060078
 			public const int mobilePhone = 2131099768;
 			
-			// aapt resource value: 0x7f06007d
-			public const int mobilePhoneNumber = 2131099773;
+			// aapt resource value: 0x7f06007c
+			public const int mobilePhoneNumber = 2131099772;
 			
 			// aapt resource value: 0x7f060016
 			public const int multiply = 2131099670;
 			
-			// aapt resource value: 0x7f06007b
-			public const int name = 2131099771;
+			// aapt resource value: 0x7f06007a
+			public const int name = 2131099770;
 			
 			// aapt resource value: 0x7f06006d
 			public const int navigation_header_container = 2131099757;
@@ -2080,8 +2083,8 @@ namespace EmployeeDirectory.Android
 			// aapt resource value: 0x7f060077
 			public const int officePhone = 2131099767;
 			
-			// aapt resource value: 0x7f06007c
-			public const int officePhoneNumber = 2131099772;
+			// aapt resource value: 0x7f06007b
+			public const int officePhoneNumber = 2131099771;
 			
 			// aapt resource value: 0x7f060028
 			public const int parallax = 2131099688;
@@ -2104,14 +2107,11 @@ namespace EmployeeDirectory.Android
 			// aapt resource value: 0x7f060054
 			public const int radio = 2131099732;
 			
-			// aapt resource value: 0x7f06007e
-			public const int refresher = 2131099774;
+			// aapt resource value: 0x7f06007d
+			public const int refresher = 2131099773;
 			
 			// aapt resource value: 0x7f060030
 			public const int right = 2131099696;
-			
-			// aapt resource value: 0x7f06007a
-			public const int saveButton = 2131099770;
 			
 			// aapt resource value: 0x7f060017
 			public const int screen = 2131099671;
@@ -2477,7 +2477,10 @@ namespace EmployeeDirectory.Android
 		{
 			
 			// aapt resource value: 0x7f0c0000
-			public const int home = 2131492864;
+			public const int addemp = 2131492864;
+			
+			// aapt resource value: 0x7f0c0001
+			public const int home = 2131492865;
 			
 			static Menu()
 			{

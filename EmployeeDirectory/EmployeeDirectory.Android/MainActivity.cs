@@ -24,11 +24,11 @@ namespace EmployeeDirectory.Android
 		private CompatV7.Widget.SearchView _searchView;
 
 		protected override void OnCreate(Bundle bundle)
-        {
-            base.OnCreate(bundle);
+		{
+			base.OnCreate(bundle);
 
-            // Set our view from the "main" layout resource
-            SetContentView(Resource.Layout.Main);
+			// Set our view from the "main" layout resource
+			SetContentView(Resource.Layout.Main);
 
 			var topToolbar = FindViewById<CompatV7.Widget.Toolbar>(Resource.Id.topToolbar);
 			SetSupportActionBar(topToolbar);
@@ -45,6 +45,14 @@ namespace EmployeeDirectory.Android
 				});
 				_searchResult.Adapter = new EmployeeListAdapter(this, employees);
 				refresher.Refreshing = false;
+			};
+
+			var addEmpFab = FindViewById<FloatingActionButton>(Resource.Id.addEmpButton);
+			addEmpFab.Click += (sender, e) =>
+			{
+				var addIntent = new Intent(this, typeof(EmployeeAddActivity));
+				addIntent.AddFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
+				StartActivityForResult(addIntent, RequestCode.ADD_EMPLOYEE);
 			};
 
             _searchResult = FindViewById<ListView>(R.Id.List);
@@ -85,20 +93,6 @@ namespace EmployeeDirectory.Android
 			_searchView = view.JavaCast<CompatV7.Widget.SearchView>();
 			_searchView.SetOnQueryTextListener(this);
 			return base.OnCreateOptionsMenu(menu);
-		}
-
-		public override bool OnOptionsItemSelected(IMenuItem item)
-		{
-			switch (item.ItemId)
-			{
-				case Resource.Id.menu_add_emp:
-					var addIntent = new Intent(this, typeof(EmployeeAddActivity));
-					addIntent.AddFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
-					StartActivityForResult(addIntent, RequestCode.ADD_EMPLOYEE);
-					return true;
-				default:
-					return base.OnOptionsItemSelected(item);
-			}
 		}
 
 		protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
