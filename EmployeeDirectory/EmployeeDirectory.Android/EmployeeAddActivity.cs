@@ -19,7 +19,7 @@ namespace EmployeeDirectory.Android
 	public class EmployeeAddActivity : AppCompatActivity
 	{
 		private ImageButton _imageButton;
-		private File _file;
+		private string _filePath;
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
@@ -31,14 +31,18 @@ namespace EmployeeDirectory.Android
 			SetSupportActionBar(topToolbar);
 			SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
+			if (savedInstanceState != null)
+				_filePath = savedInstanceState.GetString("filepath", null);
+
 			if (AppContext.IsCameraAvailable)
 			{
 				_imageButton = FindViewById<ImageButton>(Resource.Id.photo);
 				_imageButton.Click += (sender, e) =>
 				{
-					_file = new File(AppContext.PhotoDirectory, System.Guid.NewGuid() + ".jpg");
+					var file = new File(AppContext.PhotoDirectory, System.Guid.NewGuid() + ".jpg");
+					_filePath = file.AbsolutePath;
 					var intent = new Intent(MediaStore.ActionImageCapture);
-					intent.PutExtra(MediaStore.ExtraOutput, Uri.FromFile(_file));
+					intent.PutExtra(MediaStore.ExtraOutput, Uri.FromFile(file));
 					StartActivityForResult(intent, 0);
 				};
 			}
@@ -72,8 +76,14 @@ namespace EmployeeDirectory.Android
 			if (resultCode == Result.Ok)
 			{
 				// Display in ImageView
-				_imageButton.SetImageURI(Uri.FromFile(_file));
+				_imageButton.SetImageURI(Uri.FromFile(new File(_filePath)));
 			}
+		}
+
+		protected override void OnSaveInstanceState(Bundle outState)
+		{
+			outState.PutString("filepath", _filePath);
+			base.OnSaveInstanceState(outState);
 		}
 
 		protected override void OnDestroy()
@@ -138,7 +148,8 @@ namespace EmployeeDirectory.Android
 				OfficePhone = officePhone.Text,
 				MobilePhone = mobilePhone.Text,
 				Email = email.Text,
-				PhotoFileName = (_file != null ? _file.Name : null)
+				//PhotoFileName = (_file != null ? _file.Name : null)
+				PhotoFileName = _filePath
 			};
 
 			DatabaseHelper.AddEmployee(employee);
