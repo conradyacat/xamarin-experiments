@@ -32,7 +32,9 @@ namespace EmployeeDirectory.Android
 			SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
 			if (savedInstanceState != null)
+			{
 				_filePath = savedInstanceState.GetString("filepath", null);
+			}
 
 			if (AppContext.IsCameraAvailable)
 			{
@@ -45,6 +47,8 @@ namespace EmployeeDirectory.Android
 					intent.PutExtra(MediaStore.ExtraOutput, Uri.FromFile(file));
 					StartActivityForResult(intent, 0);
 				};
+				if (!string.IsNullOrEmpty(_filePath))
+					_imageButton.SetImageURI(Uri.FromFile(new File(_filePath)));
 			}
 		}
 
