@@ -12,6 +12,7 @@ using Android.Views;
 using Android.Widget;
 using EmployeeDirectory.Android.Database;
 using EmployeeDirectory.Android.Util;
+using Java.IO;
 using CompatV7 = Android.Support.V7;
 using R = Android.Resource;
 
@@ -71,16 +72,19 @@ namespace EmployeeDirectory.Android
 				var employee = e.Parent.GetItemAtPosition(e.Position).Cast<Employee>();
 				string name = employee.FirstName + " " + employee.LastName;
 				Dialog confirmDialog = new CompatV7.App.AlertDialog.Builder(this)
-										.SetTitle("Confirm Delete")
-										.SetMessage("Do you want to delete \"" + name + "\"?")
-										.SetPositiveButton("Delete", (senderAlert, eAlert) =>
+									   .SetTitle("Confirm Delete")
+									   .SetMessage("Do you want to delete \"" + name + "\"?")
+									   .SetPositiveButton("Delete", (senderAlert, eAlert) =>
 											{
 												DatabaseHelper.DeleteEmployee(employee);
+												var file = new File(AppContext.PhotoDirectory, employee.PhotoFileName);
+												if (file.Exists())
+													file.Delete();
 												Snackbar.Make(FindViewById<View>(Resource.Id.mainLayout), "\"" + name + "\" deleted", Snackbar.LengthShort).Show();
 												_searchResult.Adapter = new EmployeeListAdapter(this, DatabaseHelper.GetEmployees(""));
 											})
-	                                   .SetNegativeButton("Cancel", (senderAlert, eAlert) => { })
-	                                   .Create();
+									   .SetNegativeButton("Cancel", (senderAlert, eAlert) => { })
+									   .Create();
 				confirmDialog.Show();
 			};
         }

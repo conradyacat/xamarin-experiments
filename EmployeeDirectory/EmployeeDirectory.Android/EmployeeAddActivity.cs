@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.Net;
 using Android.OS;
 using Android.Provider;
@@ -9,6 +10,7 @@ using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 using EmployeeDirectory.Android.Database;
+using EmployeeDirectory.Android.Util;
 using Java.IO;
 using CompatV7 = Android.Support.V7;
 
@@ -48,7 +50,9 @@ namespace EmployeeDirectory.Android
 					StartActivityForResult(intent, 0);
 				};
 				if (!string.IsNullOrEmpty(_filePath))
-					_imageButton.SetImageURI(Uri.FromFile(new File(_filePath)));
+				{
+					ShowPhoto();
+				}
 			}
 		}
 
@@ -79,8 +83,7 @@ namespace EmployeeDirectory.Android
 
 			if (resultCode == Result.Ok)
 			{
-				// Display in ImageView
-				_imageButton.SetImageURI(Uri.FromFile(new File(_filePath)));
+				ShowPhoto();
 			}
 		}
 
@@ -152,14 +155,22 @@ namespace EmployeeDirectory.Android
 				OfficePhone = officePhone.Text,
 				MobilePhone = mobilePhone.Text,
 				Email = email.Text,
-				//PhotoFileName = (_file != null ? _file.Name : null)
-				PhotoFileName = _filePath
+				PhotoFileName = System.IO.Path.GetFileName(_filePath)
 			};
 
 			DatabaseHelper.AddEmployee(employee);
 			Snackbar.Make(FindViewById<View>(Resource.Id.empAddLayout), "New Employee Saved", Snackbar.LengthShort).Show();
 			SetResult(Result.Ok, null);
 			Finish();			
+		}
+
+		private void ShowPhoto()
+		{
+			// Display in ImageView
+			Bitmap bitmap = BitmapHelpers.RotateToPortrait(_filePath);
+			_imageButton.SetImageBitmap(bitmap);
+			_imageButton.SetImageURI(Uri.FromFile(new File(_filePath)));
+			System.GC.Collect();
 		}
 	}
 }

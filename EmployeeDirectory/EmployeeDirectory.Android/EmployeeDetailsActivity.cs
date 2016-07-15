@@ -43,8 +43,11 @@ namespace EmployeeDirectory.Android
             var email = FindViewById<TextView>(Resource.Id.email);
             email.Text = e.Email;
 
-			var photo = FindViewById<ImageView>(Resource.Id.photo);
-			photo.SetImageURI(Uri.FromFile(new File(AppContext.PhotoDirectory, e.PhotoFileName)));
+			if (!string.IsNullOrEmpty(e.PhotoFileName))
+			{
+				var photo = FindViewById<ImageView>(Resource.Id.photo);
+				photo.SetImageURI(Uri.FromFile(new File(AppContext.PhotoDirectory, e.PhotoFileName)));
+			}
         }
 
 		public override bool OnOptionsItemSelected(IMenuItem item)

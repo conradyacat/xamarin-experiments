@@ -10,6 +10,7 @@
         android:layout_height="50.0dp"
         android:layout_gravity="left"
         android:id="@+id/photo"
+        android:scaleType="fitXY"
         android:adjustViewBounds="true" />
     <LinearLayout
         android:layout_width="wrap_content"

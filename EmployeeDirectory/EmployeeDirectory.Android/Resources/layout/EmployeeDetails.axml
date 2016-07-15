@@ -36,7 +36,8 @@
                     android:layout_height="200.0dp"
                     android:layout_gravity="center"
                     android:id="@+id/photo"
-                    android:adjustViewBounds="true" />
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY" />
                 <GridLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
